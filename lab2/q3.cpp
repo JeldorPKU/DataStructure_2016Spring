@@ -26,12 +26,14 @@ int w(int a, int b, int c) {
     else if (a > 20 || b > 20 || c > 20)
         return w(20, 20, 20);
     else {
-        if (v[a][b][c])
+        if (v[a][b][c]) {
             return ww[a][b][c];
-        else {
+        } else if (a < b && b < c) {
             v[a][b][c] = 1;
-            ww[a][b][c] = w(a - 1, b, c) + w(a - 1, b - 1, c) + w(a - 1, b, c - 1) - w(a - 1, b - 1, c - 1);
-            return ww[a][b][c];
+            return ww[a][b][c] = w(a, b, c - 1) + w(a, b - 1, c - 1) - w(a, b - 1, c);
+        } else {
+            v[a][b][c] = 1;
+            return ww[a][b][c] = w(a - 1, b, c) + w(a - 1, b - 1, c) + w(a - 1, b, c - 1) - w(a - 1, b - 1, c - 1);
         }
     }
 }
